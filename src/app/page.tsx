@@ -1,96 +1,163 @@
 "use client";
 
-import { useState, useTransition, useRef } from "react";
+import { useState, useTransition, useRef, useEffect } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card"; // Removed Card, CardContent
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, AlertTriangle, Lightbulb } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Loader2, AlertTriangle, Send } from "lucide-react";
 import { handleGenerateVerse } from "./actions";
 import type { GenerateRelevantVersesOutput } from "@/ai/flows/generate-relevant-verses";
 import { VerseCard } from "@/components/verse-card";
-import { useBookmarks } from "@/hooks/use-bookmarks"; // For generating ID
+import { useBookmarks } from "@/hooks/use-bookmarks";
+import { cn } from "@/lib/utils";
+
+interface ChatMessage {
+  id: string;
+  type: "user" | "ai";
+  // User content is string, AI content includes query for VerseCard
+  content: string | { query: string; verses: string }; 
+}
 
 export default function HomePage() {
-  const [query, setQuery] = useState("");
-  const [generatedVerse, setGeneratedVerse] = useState<GenerateRelevantVersesOutput | null>(null);
+  const [currentQuery, setCurrentQuery] = useState("");
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  
   const formRef = useRef<HTMLFormElement>(null);
-  const { generateVerseId } = useBookmarks(); // Access the ID generation utility
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { generateVerseId } = useBookmarks();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(scrollToBottom, [chatMessages]);
+
+  const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
+    if (event) event.preventDefault();
+    if (currentQuery.trim().length === 0) return;
+
+    const userMessage: ChatMessage = {
+      id: Date.now().toString() + Math.random().toString(),
+      type: "user",
+      content: currentQuery,
+    };
+    setChatMessages((prev) => [...prev, userMessage]);
+    
+    const originalQueryForAI = currentQuery;
+    setCurrentQuery(""); // Clear input after capturing
     setError(null);
-    setGeneratedVerse(null);
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData();
+    formData.append("query", originalQueryForAI);
 
     startTransition(async () => {
       const result = await handleGenerateVerse(formData);
       if (result.error) {
         setError(result.error);
+        // Optionally add an error message to chat
+        // const errorMessage: ChatMessage = {
+        //   id: Date.now().toString() + Math.random().toString(),
+        //   type: "ai",
+        //   content: `Error: ${result.error}`, // Or a generic error message
+        // };
+        // setChatMessages((prev) => [...prev, errorMessage]);
       } else if (result.data) {
-        setGeneratedVerse(result.data);
+        const aiMessage: ChatMessage = {
+          id: Date.now().toString() + Math.random().toString(),
+          type: "ai",
+          content: { query: originalQueryForAI, verses: result.data.verses },
+        };
+        setChatMessages((prev) => [...prev, aiMessage]);
       }
     });
   };
 
   return (
-    <div className="space-y-8">
-      <Card className="shadow-xl">
-        <CardHeader>
-          <CardTitle className="font-headline text-3xl text-center text-primary">
-            Seek Wisdom from the Gita
-          </CardTitle>
-          <CardDescription className="text-center text-lg">
-            Share your life's challenge or question, and find relevant guidance from the Bhagavad Gita.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Textarea
-                name="query"
-                placeholder="Describe your situation or question (e.g., 'I am feeling lost and without purpose', 'How to deal with difficult people?')"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                rows={4}
-                className="text-base"
-                disabled={isPending}
+    <div className="flex flex-col h-full flex-1">
+      <CardHeader className="text-center pt-0"> {/* Adjusted padding */}
+        <CardTitle className="font-headline text-3xl text-primary">
+          Chat with Gita GPT
+        </CardTitle>
+        <CardDescription className="text-lg">
+          Ask your questions or share your concerns to receive guidance from the Bhagavad Gita.
+        </CardDescription>
+      </CardHeader>
+
+      <ScrollArea className="flex-1 p-4">
+        {chatMessages.map((msg) => (
+          <div
+            key={msg.id}
+            className={`mb-4 flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
+          >
+            {msg.type === 'user' ? (
+              <div className="max-w-xl rounded-lg px-4 py-3 shadow-md bg-primary text-primary-foreground">
+                <p className="whitespace-pre-wrap">{msg.content as string}</p>
+              </div>
+            ) : (
+              // AI message uses VerseCard, which has its own padding and structure
+              // We might not need an extra div wrapper if VerseCard handles its styling well enough
+              <VerseCard
+                verseData={msg.content as { query: string; verses: string }}
+                id={generateVerseId(
+                  (msg.content as { query: string; verses: string }).query,
+                  (msg.content as { query: string; verses: string }).verses
+                )}
               />
-            </div>
-            <Button type="submit" className="w-full sm:w-auto" disabled={isPending || query.trim().length < 3}>
+            )}
+          </div>
+        ))}
+        <div ref={messagesEndRef} />
+      </ScrollArea>
+
+      <div className="p-4 border-t border-border bg-background">
+        <form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          className="space-y-2"
+        >
+          <div className="flex items-center space-x-2">
+            <Textarea
+              name="query"
+              placeholder="Ask Krishna..."
+              value={currentQuery}
+              onChange={(e) => setCurrentQuery(e.target.value)}
+              rows={1}
+              className="flex-1 resize-none text-base py-2"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit(); // Call directly
+                }
+              }}
+              disabled={isPending}
+            />
+            <Button
+              type="submit"
+              size="icon"
+              className="h-10 w-10"
+              disabled={isPending || currentQuery.trim().length === 0}
+            >
               {isPending ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Generating...
-                </>
+                <Loader2 className="h-5 w-5 animate-spin" />
               ) : (
-                <>
-                  <Lightbulb className="mr-2 h-4 w-4" />
-                  Find Verses
-                </>
+                <Send className="h-5 w-5" />
               )}
+              <span className="sr-only">Send</span>
             </Button>
-          </form>
-        </CardContent>
-      </Card>
-
-      {error && (
-        <Alert variant="destructive">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-
-      {generatedVerse && query && (
-         <VerseCard 
-            verseData={{ query, verses: generatedVerse.verses }} 
-            id={generateVerseId(query, generatedVerse.verses)} 
-          />
-      )}
+          </div>
+          {error && (
+            <Alert variant="destructive" className="mt-2">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+        </form>
+      </div>
     </div>
   );
 }

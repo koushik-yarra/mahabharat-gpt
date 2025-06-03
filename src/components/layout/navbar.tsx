@@ -5,7 +5,7 @@ import { OmIcon } from '@/components/icons/om-icon';
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
 import { TextSizeSelector } from '@/components/text-size-selector';
 import { Button } from '@/components/ui/button';
-import { Home, BookOpen, Bookmark } from 'lucide-react';
+import { Home, BookOpen } from 'lucide-react'; // Removed Bookmark icon
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -13,9 +13,9 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const navLinks = [
-    { href: '/', label: 'Home', icon: <Home className="h-4 w-4" /> },
+    { href: '/', label: 'Chat', icon: <Home className="h-4 w-4" /> },
     { href: '/overview', label: 'Overview', icon: <BookOpen className="h-4 w-4" /> },
-    { href: '/bookmarks', label: 'Bookmarks', icon: <Bookmark className="h-4 w-4" /> },
+    // { href: '/bookmarks', label: 'Bookmarks', icon: <Bookmark className="h-4 w-4" /> }, // Removed Bookmarks link
   ];
 
   return (
@@ -23,7 +23,7 @@ export default function Navbar() {
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <OmIcon className="h-8 w-8 text-primary" />
-          <span className="font-headline text-xl font-bold">Gita Insights</span>
+          <span className="font-headline text-xl font-bold">Gita GPT</span>
         </Link>
         <nav className="flex flex-1 items-center space-x-1">
           {navLinks.map((link) => (

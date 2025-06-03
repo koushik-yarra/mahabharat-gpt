@@ -8,8 +8,8 @@ import Footer from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Gita Insights',
-  description: 'Find wisdom from the Bhagavad Gita for your life challenges.',
+  title: 'Gita GPT',
+  description: 'Chat with Gita GPT to find wisdom from the Bhagavad Gita.',
 };
 
 export default function RootLayout({
@@ -35,7 +35,7 @@ export default function RootLayout({
             <BookmarkProvider>
               <div className="flex flex-col flex-1">
                 <Navbar />
-                <main className="flex-grow container mx-auto px-4 py-8">
+                <main className="flex-grow container mx-auto px-4 py-8 flex flex-col">
                   {children}
                 </main>
                 <Footer />

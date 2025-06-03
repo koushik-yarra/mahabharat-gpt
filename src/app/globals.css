@@ -4,72 +4,72 @@
 
 @layer base {
   :root {
-    --background: 60 56% 91%; /* Light Beige #F5F5DC */
-    --foreground: 25 57% 20%; /* Dark Brown for text */
+    --background: 210 100% 98%; /* Very Light Sky Blue */
+    --foreground: 220 60% 25%; /* Deep Indigo Text */
 
-    --card: 60 50% 95%; /* Lighter Beige */
-    --card-foreground: 25 57% 20%;
+    --card: 210 70% 94%; /* Light Blue-Gray */
+    --card-foreground: 220 60% 25%;
 
-    --popover: 60 50% 95%;
-    --popover-foreground: 25 57% 20%;
+    --popover: 210 70% 94%;
+    --popover-foreground: 220 60% 25%;
 
-    --primary: 36 100% 60%; /* Saffron #FF9933 */
+    --primary: 221 83% 53%; /* Royal Blue (Krishna's Hue) */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 30 40% 85%; /* Lighter, muted saffron/beige for secondary elements */
-    --secondary-foreground: 25 57% 20%;
+    --secondary: 215 50% 80%; /* Muted Blue */
+    --secondary-foreground: 220 60% 25%;
 
-    --muted: 30 30% 80%; /* Muted beige */
-    --muted-foreground: 25 40% 35%; /* Muted brown */
+    --muted: 215 40% 90%; /* Very Pale Blue */
+    --muted-foreground: 220 40% 45%; /* Muted Indigo */
 
-    --accent: 25 57% 38%; /* Earthy Brown #A0522D */
-    --accent-foreground: 0 0% 100%; /* White */
+    --accent: 200 90% 55%; /* Bright Sky Blue */
+    --accent-foreground: 220 60% 15%; /* Dark Blue for contrast on accent */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 30 30% 75%; /* Subtle darker beige/light brown */
-    --input: 30 30% 80%;
-    --ring: 36 100% 60%; /* Saffron for focus rings */
+    --border: 210 40% 80%; /* Soft Blue Border */
+    --input: 210 40% 85%;
+    --ring: 221 83% 53%; /* Royal Blue for focus */
 
     --radius: 0.5rem;
 
     /* Chart colors (can be adjusted if charts are used) */
-    --chart-1: 36 100% 60%;
-    --chart-2: 25 57% 38%;
-    --chart-3: 15 80% 65%;
-    --chart-4: 45 70% 70%;
+    --chart-1: 221 83% 53%;
+    --chart-2: 200 90% 55%;
+    --chart-3: 15 80% 65%; /* Keeping some contrast if needed */
+    --chart-4: 45 70% 70%; /* Keeping some contrast if needed */
     --chart-5: 0 0% 50%;
   }
 
   .dark {
-    --background: 25 10% 13%; /* Dark Desaturated Brown */
-    --foreground: 60 30% 85%; /* Light muted beige/off-white */
+    --background: 220 40% 12%; /* Deep Navy */
+    --foreground: 210 80% 90%; /* Pale Blue-White Text */
 
-    --card: 25 10% 10%; /* Darker card background */
-    --card-foreground: 60 30% 85%;
+    --card: 220 35% 18%; /* Dark Slate Blue */
+    --card-foreground: 210 80% 90%;
 
-    --popover: 25 10% 10%;
-    --popover-foreground: 60 30% 85%;
+    --popover: 220 35% 18%;
+    --popover-foreground: 210 80% 90%;
 
-    --primary: 36 100% 60%; /* Saffron */
-    --primary-foreground: 25 10% 10%; /* Dark text on Saffron */
+    --primary: 221 83% 63%; /* Brighter Royal Blue for Dark Mode */
+    --primary-foreground: 220 20% 95%; /* Very Light Blue/White */
 
-    --secondary: 25 15% 25%; /* Dark muted brown */
-    --secondary-foreground: 60 30% 85%;
+    --secondary: 220 30% 25%; /* Muted Dark Blue */
+    --secondary-foreground: 210 80% 90%;
 
-    --muted: 25 15% 20%;
-    --muted-foreground: 60 25% 70%;
+    --muted: 220 25% 20%; /* Darker Muted Blue */
+    --muted-foreground: 210 60% 70%; /* Lighter Muted Indigo */
 
-    --accent: 25 50% 55%; /* Lightened Earthy Brown for dark mode */
-    --accent-foreground: 0 0% 100%;
+    --accent: 200 90% 60%; /* Brighter Sky Blue for Dark Mode */
+    --accent-foreground: 0 0% 100%; /* White */
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 25 10% 25%; /* Subtle dark grey/brown */
-    --input: 25 10% 20%;
-    --ring: 36 100% 60%; /* Saffron for focus rings */
+    --border: 220 20% 30%; /* Dark Blue-Gray Border */
+    --input: 220 25% 22%;
+    --ring: 221 83% 63%;
   }
 }
 
