@@ -1,4 +1,9 @@
-
+/**
+ * @fileOverview Root layout for the Gita Insights application.
+ * This component sets up the basic HTML structure, includes global CSS,
+ * and wraps the application with necessary providers (Theme, TextSize, Bookmarks).
+ * It also defines global metadata for the application.
+ */
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/providers/theme-provider';
@@ -13,6 +18,12 @@ export const metadata: Metadata = {
   description: 'Chat with Mahabharat GPT to find wisdom from the epic Mahabharata.',
 };
 
+/**
+ * RootLayout component.
+ * @param {Readonly<{ children: React.ReactNode }>} props - The props for the component.
+ * @param {React.ReactNode} props.children - The child components to be rendered within this layout.
+ * @returns {JSX.Element} The root layout structure.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

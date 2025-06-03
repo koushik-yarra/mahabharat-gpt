@@ -1,5 +1,10 @@
-"use client";
 
+"use client";
+/**
+ * @fileOverview ThemeToggleButton component.
+ * Allows users to switch between light, dark, and system themes
+ * using a dropdown menu.
+ */
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -11,6 +16,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+/**
+ * ThemeToggleButton component.
+ * Renders a button that opens a dropdown menu to select the application theme.
+ * @returns {JSX.Element} The theme toggle button UI.
+ */
 export function ThemeToggleButton() {
   const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
@@ -20,6 +30,7 @@ export function ThemeToggleButton() {
   }, []);
 
   if (!mounted) {
+    // Render a placeholder or disabled button until mounted to avoid hydration mismatch
     return <Button variant="outline" size="icon" className="w-9 h-9" disabled><Sun className="h-[1.2rem] w-[1.2rem]" /></Button>;
   }
 

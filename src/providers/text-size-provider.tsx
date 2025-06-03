@@ -1,12 +1,23 @@
 
 "use client";
-
+/**
+ * @fileOverview TextSizeProvider component and context.
+ * Manages the application's text size preference, allowing users to
+ * increase, decrease, or set a default text size. Changes are persisted
+ * to localStorage and applied globally to the document body.
+ */
 import React, { createContext, useState, useEffect, useCallback, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import { LOCAL_STORAGE_TEXT_SIZE_KEY } from '@/lib/constants';
 
+/**
+ * Defines the available text size Tailwind CSS classes.
+ */
 type TextSizeType = 'text-sm' | 'text-base' | 'text-lg' | 'text-xl';
 
+/**
+ * Interface for the TextSizeContext.
+ */
 interface TextSizeContextType {
   textSize: TextSizeType;
   setTextSize: (size: TextSizeType) => void;
@@ -19,30 +30,32 @@ const availableSizes: TextSizeType[] = ['text-sm', 'text-base', 'text-lg', 'text
 
 export const TextSizeContext = createContext<TextSizeContextType | undefined>(undefined);
 
-export function TextSizeProvider({ children }: { children: ReactNode }) {
+/**
+ * TextSizeProvider component.
+ * Provides text size state and functions to its children via context.
+ * Handles persistence of text size preference to localStorage.
+ * @param {Readonly<{ children: ReactNode }>} props - The props for the component.
+ * @param {ReactNode} props.children - The child components to be wrapped by this provider.
+ * @returns {JSX.Element} The TextSizeContext.Provider wrapping its children.
+ */
+export function TextSizeProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [textSize, setTextSizeState] = useState<TextSizeType>(defaultTextSize);
   const [isMounted, setIsMounted] = useState(false);
 
-  // Effect to run on initial client mount
   useEffect(() => {
-    setIsMounted(true); // Mark as mounted
+    setIsMounted(true); 
     try {
       const storedSize = localStorage.getItem(LOCAL_STORAGE_TEXT_SIZE_KEY) as TextSizeType | null;
       if (storedSize && availableSizes.includes(storedSize)) {
-        setTextSizeState(storedSize); // Update state if valid size found in localStorage
+        setTextSizeState(storedSize); 
       }
-      // If no stored size, `textSize` remains `defaultTextSize`.
-      // The useEffect below will handle applying it to document.body after isMounted is true.
     } catch (error) {
       console.warn("Failed to access localStorage for text size on mount:", error);
-      // In case of error, textSize is still defaultTextSize.
-      // The useEffect below will apply this to document.body.
     }
-  }, []); // Empty dependency array: run once on mount
+  }, []); 
 
-  // Effect to handle side effects when textSize changes or after initial mount
   useEffect(() => {
-    if (isMounted) { // Only run on client-side after initial mount setup
+    if (isMounted) { 
       document.body.classList.remove(...availableSizes);
       document.body.classList.add(textSize);
       try {
@@ -51,27 +64,27 @@ export function TextSizeProvider({ children }: { children: ReactNode }) {
         console.warn("Failed to save text size to localStorage:", error);
       }
     }
-  }, [textSize, isMounted]); // Run when textSize changes or after isMounted becomes true
+  }, [textSize, isMounted]); 
 
   const setTextSize = useCallback((size: TextSizeType) => {
     if (availableSizes.includes(size)) {
-      setTextSizeState(size); // Just update state. Side effects are handled by the useEffect above.
+      setTextSizeState(size); 
     }
-  }, []); // Stable callback, relies only on setTextSizeState and availableSizes
+  }, []); 
 
   const increaseTextSize = useCallback(() => {
     const currentIndex = availableSizes.indexOf(textSize);
     if (currentIndex < availableSizes.length - 1) {
       setTextSize(availableSizes[currentIndex + 1]);
     }
-  }, [textSize, setTextSize]); // Depends on textSize and stable setTextSize
+  }, [textSize, setTextSize]);
 
   const decreaseTextSize = useCallback(() => {
     const currentIndex = availableSizes.indexOf(textSize);
     if (currentIndex > 0) {
       setTextSize(availableSizes[currentIndex - 1]);
     }
-  }, [textSize, setTextSize]); // Depends on textSize and stable setTextSize
+  }, [textSize, setTextSize]); 
 
   const value = useMemo(() => ({
     textSize,
@@ -80,9 +93,6 @@ export function TextSizeProvider({ children }: { children: ReactNode }) {
     decreaseTextSize,
   }), [textSize, setTextSize, increaseTextSize, decreaseTextSize]);
 
-  // Always render the Provider.
-  // For SSR and initial client render before isMounted=true, children will receive the
-  // defaultTextSize via context. The body class will be set by the useEffect after mount.
   return (
     <TextSizeContext.Provider value={value}>
       {children}

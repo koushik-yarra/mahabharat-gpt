@@ -1,6 +1,14 @@
-
+/**
+ * @fileOverview SudarshanChakraIcon SVG component.
+ * Represents a simplified Sudarshana Chakra, the divine discus of Lord Vishnu/Krishna.
+ */
 import type { SVGProps } from 'react';
 
+/**
+ * SudarshanChakraIcon SVG component.
+ * @param {SVGProps<SVGSVGElement>} props - SVG properties.
+ * @returns {JSX.Element} The SudarshanChakraIcon SVG.
+ */
 export function SudarshanChakraIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg

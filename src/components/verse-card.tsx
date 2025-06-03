@@ -1,19 +1,37 @@
-"use client";
 
+"use client";
+/**
+ * @fileOverview VerseCard component for displaying AI-generated verses or wisdom.
+ * This component shows the user's query and the corresponding verses/teachings.
+ * It also provides a button to bookmark or unbookmark the verse.
+ */
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Bookmark, Star } from "lucide-react";
 import { useBookmarks } from "@/hooks/use-bookmarks";
-import type { Verse } from "@/lib/types"; // Assuming Verse type includes id, query, and verses text
 
+/**
+ * Props for the VerseCard component.
+ * @interface VerseCardProps
+ * @property {object} verseData - The data for the verse.
+ * @property {string} verseData.query - The user's query that led to this verse.
+ * @property {string} verseData.verses - The AI-generated verse or wisdom text.
+ * @property {string} id - A unique identifier for the verse, used for bookmarking.
+ */
 interface VerseCardProps {
   verseData: {
     query: string;
     verses: string;
   };
-  id: string; // Generated ID for bookmarking
+  id: string; 
 }
 
+/**
+ * VerseCard component.
+ * Renders a card displaying a query and its corresponding verses, with a bookmark toggle.
+ * @param {VerseCardProps} props - The props for the component.
+ * @returns {JSX.Element} The VerseCard UI.
+ */
 export function VerseCard({ verseData, id }: VerseCardProps) {
   const { addBookmark, removeBookmark, isBookmarked } = useBookmarks();
   const bookmarked = isBookmarked(id);

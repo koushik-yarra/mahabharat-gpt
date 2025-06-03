@@ -1,5 +1,10 @@
-"use client";
 
+"use client";
+/**
+ * @fileOverview TextSizeSelector component.
+ * Allows users to adjust the base text size of the application
+ * (smaller, default, larger) via a dropdown menu.
+ */
 import { ZoomIn, ZoomOut,Baseline } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTextSize } from "@/hooks/use-text-size";
@@ -10,9 +15,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-
+/**
+ * TextSizeSelector component.
+ * Renders a button that opens a dropdown menu to select text size.
+ * @returns {JSX.Element} The text size selector UI.
+ */
 export function TextSizeSelector() {
-  const { increaseTextSize, decreaseTextSize, setTextSize, textSize } = useTextSize();
+  const { increaseTextSize, decreaseTextSize, setTextSize } = useTextSize();
 
   return (
     <DropdownMenu>

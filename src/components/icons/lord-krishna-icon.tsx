@@ -1,6 +1,14 @@
-
+/**
+ * @fileOverview LordKrishnaIcon SVG component.
+ * Represents a simplified icon for Lord Krishna, typically a peacock feather motif.
+ */
 import type { SVGProps } from 'react';
 
+/**
+ * LordKrishnaIcon SVG component.
+ * @param {SVGProps<SVGSVGElement>} props - SVG properties.
+ * @returns {JSX.Element} The LordKrishnaIcon SVG.
+ */
 export function LordKrishnaIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg

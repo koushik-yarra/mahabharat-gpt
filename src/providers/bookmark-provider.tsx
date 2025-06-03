@@ -1,24 +1,37 @@
 
 "use client";
-
+/**
+ * @fileOverview BookmarkProvider component and context.
+ * Manages the state of bookmarked verses, allowing users to add, remove,
+ * and check the bookmark status of verses. Bookmarks are persisted
+ * to localStorage.
+ */
 import React, { createContext, useState, useEffect, useCallback, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import { LOCAL_STORAGE_BOOKMARKS_KEY } from '@/lib/constants';
 import type { Verse } from '@/lib/types';
 
+/**
+ * Interface for the BookmarkContext.
+ */
 interface BookmarkContextType {
   bookmarks: Verse[];
   addBookmark: (verseData: { query: string, verses: string }) => void;
   removeBookmark: (verseId: string) => void;
-  isBookmarked: (verseId: string) => boolean; // verseId here means the hash of query+verses
+  isBookmarked: (verseId: string) => boolean; 
   generateVerseId: (query: string, verses: string) => string;
 }
 
 export const BookmarkContext = createContext<BookmarkContextType | undefined>(undefined);
 
-// Helper to generate a consistent ID for a verse based on its content
+/**
+ * Generates a consistent ID for a verse based on its query and content.
+ * This is a simple hash function and not cryptographically secure, intended for UI uniqueness.
+ * @param {string} query - The user query associated with the verse.
+ * @param {string} verses - The text content of the verse.
+ * @returns {string} A string hash representing the verse ID.
+ */
 const generateVerseId = (query: string, verses: string): string => {
-  // Simple hash function (not cryptographically secure, just for uniqueness)
   let hash = 0;
   const str = query + verses;
   for (let i = 0; i < str.length; i++) {
@@ -29,8 +42,15 @@ const generateVerseId = (query: string, verses: string): string => {
   return hash.toString();
 };
 
-
-export function BookmarkProvider({ children }: { children: ReactNode }) {
+/**
+ * BookmarkProvider component.
+ * Provides bookmark state and management functions to its children via context.
+ * Handles persistence of bookmarks to localStorage.
+ * @param {Readonly<{ children: ReactNode }>} props - The props for the component.
+ * @param {ReactNode} props.children - The child components to be wrapped by this provider.
+ * @returns {JSX.Element} The BookmarkContext.Provider wrapping its children.
+ */
+export function BookmarkProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [bookmarks, setBookmarks] = useState<Verse[]>([]);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -65,7 +85,7 @@ export function BookmarkProvider({ children }: { children: ReactNode }) {
     };
     setBookmarks(prev => {
       if (prev.find(b => b.id === newBookmark.id)) {
-        return prev; // Already bookmarked
+        return prev; 
       }
       return [newBookmark, ...prev];
     });
