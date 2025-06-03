@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/providers/theme-provider';
@@ -8,8 +9,8 @@ import Footer from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Gita GPT',
-  description: 'Chat with Gita GPT to find wisdom from the Bhagavad Gita.',
+  title: 'Mahabharat GPT',
+  description: 'Chat with Mahabharat GPT to find wisdom from the epic Mahabharata.',
 };
 
 export default function RootLayout({

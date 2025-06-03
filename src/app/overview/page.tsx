@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 
@@ -7,7 +8,7 @@ export default function OverviewPage() {
       <Card className="shadow-lg">
         <CardHeader>
           <CardTitle className="font-headline text-3xl text-primary">
-            The Bhagavad Gita: An Overview
+            The Mahabharata: An Overview
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6 text-lg leading-relaxed">
@@ -23,7 +24,10 @@ export default function OverviewPage() {
             The Bhagavad Gita, often referred to as the Gita, is a 700-verse Hindu scripture that is part of the Indian epic Mahabharata.
             It is set in a narrative framework of a dialogue between Pandava prince Arjuna and his guide and charioteer Krishna, an avatar of Lord Vishnu.
           </p>
-          <h2 className="font-headline text-2xl text-accent mt-6">Context and Setting</h2>
+          <p className="font-semibold text-accent">
+            Note: This page content currently focuses on the Bhagavad Gita. It should be updated to provide a comprehensive overview of the entire Mahabharata epic.
+          </p>
+          <h2 className="font-headline text-2xl text-accent mt-6">Context and Setting (of the Bhagavad Gita)</h2>
           <p>
             The Gita is set on the battlefield of Kurukshetra, just before the start of a climactic war between two groups of cousins, the Pandavas and the Kauravas.
             Arjuna, a key warrior for the Pandavas, is overcome with moral dilemma and despair about the violence and death the war will cause, particularly to his own kin and revered teachers fighting on the opposing side.
@@ -36,7 +40,7 @@ export default function OverviewPage() {
             className="rounded-md shadow-md mx-auto"
             data-ai-hint="teacher student"
           />
-          <h2 className="font-headline text-2xl text-accent mt-6">Key Figures</h2>
+          <h2 className="font-headline text-2xl text-accent mt-6">Key Figures (in the Bhagavad Gita)</h2>
           <ul className="list-disc list-inside space-y-2">
             <li>
               <strong>Arjuna:</strong> One of the five Pandava princes, a skilled archer and warrior, representing the bewildered individual soul seeking wisdom.
@@ -51,7 +55,7 @@ export default function OverviewPage() {
               <strong>Dhritarashtra:</strong> The blind king whose inquiries to Sanjaya form the opening of the Gita.
             </li>
           </ul>
-          <h2 className="font-headline text-2xl text-accent mt-6">Core Teachings</h2>
+          <h2 className="font-headline text-2xl text-accent mt-6">Core Teachings (of the Bhagavad Gita)</h2>
           <p>
             Facing this crisis, Arjuna seeks Krishna's counsel. The ensuing dialogue covers a broad range of spiritual and philosophical topics, including:
           </p>

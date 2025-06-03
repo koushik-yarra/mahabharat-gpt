@@ -1,6 +1,7 @@
+
 "use server";
 
-import { generateRelevantVerses, type GenerateRelevantVersesInput, type GenerateRelevantVersesOutput } from "@/ai/flows/generate-relevant-verses";
+import { generateMahabharatWisdom, type GenerateMahabharatWisdomInput, type GenerateMahabharatWisdomOutput } from "@/ai/flows/generate-mahabharat-wisdom";
 import { z } from "zod";
 
 const inputSchema = z.object({
@@ -8,11 +9,11 @@ const inputSchema = z.object({
 });
 
 interface ActionResult {
-  data?: GenerateRelevantVersesOutput;
+  data?: GenerateMahabharatWisdomOutput;
   error?: string;
 }
 
-export async function handleGenerateVerse(formData: FormData): Promise<ActionResult> {
+export async function handleGenerateVerse(formData: FormData): Promise<ActionResult> { // Name kept for simplicity, but calls Mahabharat flow
   const query = formData.get("query");
 
   const validatedFields = inputSchema.safeParse({
@@ -25,15 +26,15 @@ export async function handleGenerateVerse(formData: FormData): Promise<ActionRes
     };
   }
   
-  const input: GenerateRelevantVersesInput = {
+  const input: GenerateMahabharatWisdomInput = {
     query: validatedFields.data.query,
   };
 
   try {
-    const output = await generateRelevantVerses(input);
+    const output = await generateMahabharatWisdom(input);
     return { data: output };
   } catch (e) {
-    console.error("Error generating verses:", e);
-    return { error: "Failed to generate verses. Please try again." };
+    console.error("Error generating response:", e);
+    return { error: "Failed to generate response. Please try again." };
   }
 }

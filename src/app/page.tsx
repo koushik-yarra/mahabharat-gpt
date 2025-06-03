@@ -1,14 +1,15 @@
+
 "use client";
 
 import { useState, useTransition, useRef, useEffect } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card"; // Removed Card, CardContent
+import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Loader2, AlertTriangle, Send } from "lucide-react";
-import { handleGenerateVerse } from "./actions";
-import type { GenerateRelevantVersesOutput } from "@/ai/flows/generate-relevant-verses";
+import { handleGenerateVerse } from "./actions"; // Action handler name kept for simplicity
+import type { GenerateMahabharatWisdomOutput } from "@/ai/flows/generate-mahabharat-wisdom";
 import { VerseCard } from "@/components/verse-card";
 import { useBookmarks } from "@/hooks/use-bookmarks";
 import { cn } from "@/lib/utils";
@@ -16,7 +17,6 @@ import { cn } from "@/lib/utils";
 interface ChatMessage {
   id: string;
   type: "user" | "ai";
-  // User content is string, AI content includes query for VerseCard
   content: string | { query: string; verses: string }; 
 }
 
@@ -48,7 +48,7 @@ export default function HomePage() {
     setChatMessages((prev) => [...prev, userMessage]);
     
     const originalQueryForAI = currentQuery;
-    setCurrentQuery(""); // Clear input after capturing
+    setCurrentQuery(""); 
     setError(null);
 
     const formData = new FormData();
@@ -58,13 +58,6 @@ export default function HomePage() {
       const result = await handleGenerateVerse(formData);
       if (result.error) {
         setError(result.error);
-        // Optionally add an error message to chat
-        // const errorMessage: ChatMessage = {
-        //   id: Date.now().toString() + Math.random().toString(),
-        //   type: "ai",
-        //   content: `Error: ${result.error}`, // Or a generic error message
-        // };
-        // setChatMessages((prev) => [...prev, errorMessage]);
       } else if (result.data) {
         const aiMessage: ChatMessage = {
           id: Date.now().toString() + Math.random().toString(),
@@ -78,12 +71,12 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col h-full flex-1">
-      <CardHeader className="text-center pt-0"> {/* Adjusted padding */}
+      <CardHeader className="text-center pt-0">
         <CardTitle className="font-headline text-3xl text-primary">
-          Chat with Gita GPT
+          Chat with Mahabharat GPT
         </CardTitle>
         <CardDescription className="text-lg">
-          Ask your questions or share your concerns to receive guidance from the Bhagavad Gita.
+          Ask your questions or share your concerns to receive guidance from the epic Mahabharata.
         </CardDescription>
       </CardHeader>
 
@@ -98,8 +91,6 @@ export default function HomePage() {
                 <p className="whitespace-pre-wrap">{msg.content as string}</p>
               </div>
             ) : (
-              // AI message uses VerseCard, which has its own padding and structure
-              // We might not need an extra div wrapper if VerseCard handles its styling well enough
               <VerseCard
                 verseData={msg.content as { query: string; verses: string }}
                 id={generateVerseId(
@@ -122,7 +113,7 @@ export default function HomePage() {
           <div className="flex items-center space-x-2">
             <Textarea
               name="query"
-              placeholder="Ask Krishna..."
+              placeholder="Ask Krishna, Vyasa, or any sage from the Mahabharata..."
               value={currentQuery}
               onChange={(e) => setCurrentQuery(e.target.value)}
               rows={1}
@@ -130,7 +121,7 @@ export default function HomePage() {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
-                  handleSubmit(); // Call directly
+                  handleSubmit();
                 }
               }}
               disabled={isPending}
