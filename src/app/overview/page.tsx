@@ -1,16 +1,6 @@
-/**
- * @fileOverview Page providing an overview of the Mahabharata.
- * This page contains informational content about the epic, its context,
- * key figures, and core teachings, currently with a focus on the Bhagavad Gita.
- */
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 
-/**
- * OverviewPage component.
- * Renders static content providing an overview of the Mahabharata.
- * @returns {JSX.Element} The overview page UI.
- */
 export default function OverviewPage() {
   return (
     <div className="space-y-8">

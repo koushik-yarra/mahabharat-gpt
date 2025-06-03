@@ -1,25 +1,9 @@
-
 // src/ai/flows/generate-relevant-verses.ts
 'use server';
-
-/**
- * @fileOverview An AI agent to generate relevant verses from the Bhagavad Gita based on user queries about life problems.
- *
- * This flow takes a user's query and returns verses specifically from the Bhagavad Gita
- * that offer guidance or insight.
- *
- * Exports:
- * - `generateRelevantVerses`: The primary function to call this Genkit flow.
- * - `GenerateRelevantVersesInput`: The Zod schema type for the input to the flow.
- * - `GenerateRelevantVersesOutput`: The Zod schema type for the output from the flow.
- */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-/**
- * Defines the schema for the input to the generateRelevantVerses flow.
- */
 const GenerateRelevantVersesInputSchema = z.object({
   query: z
     .string()
@@ -27,9 +11,6 @@ const GenerateRelevantVersesInputSchema = z.object({
 });
 export type GenerateRelevantVersesInput = z.infer<typeof GenerateRelevantVersesInputSchema>;
 
-/**
- * Defines the schema for the output of the generateRelevantVerses flow.
- */
 const GenerateRelevantVersesOutputSchema = z.object({
   verses: z
     .string()
@@ -37,11 +18,6 @@ const GenerateRelevantVersesOutputSchema = z.object({
 });
 export type GenerateRelevantVersesOutput = z.infer<typeof GenerateRelevantVersesOutputSchema>;
 
-/**
- * Invokes the Genkit flow to generate relevant verses from the Bhagavad Gita based on the user's query.
- * @param {GenerateRelevantVersesInput} input - The user's query.
- * @returns {Promise<GenerateRelevantVersesOutput>} A promise that resolves to the AI-generated verses.
- */
 export async function generateRelevantVerses(input: GenerateRelevantVersesInput): Promise<GenerateRelevantVersesOutput> {
   return generateRelevantVersesFlow(input);
 }
@@ -71,4 +47,3 @@ const generateRelevantVersesFlow = ai.defineFlow(
     return output!;
   }
 );
-

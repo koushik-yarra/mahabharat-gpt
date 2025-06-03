@@ -1,20 +1,9 @@
-
 "use client";
-/**
- * @fileOverview Page for displaying bookmarked verses.
- * This page allows users to view all the verses they have previously bookmarked.
- * It uses the `useBookmarks` hook to access and display the bookmark data.
- */
 import { useBookmarks } from "@/hooks/use-bookmarks";
 import { VerseCard } from "@/components/verse-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookmarkX } from "lucide-react";
 
-/**
- * BookmarksPage component.
- * Renders a list of bookmarked verses or a message if no verses are bookmarked.
- * @returns {JSX.Element} The bookmarks page UI.
- */
 export default function BookmarksPage() {
   const { bookmarks } = useBookmarks();
 

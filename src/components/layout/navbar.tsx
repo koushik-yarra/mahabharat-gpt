@@ -1,10 +1,4 @@
-
 "use client";
-/**
- * @fileOverview Navbar component for the Gita Insights application.
- * Displays navigation links, the application logo/title, and controls
- * for theme and text size.
- */
 import Link from 'next/link';
 import { OmIcon } from '@/components/icons/om-icon';
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
@@ -14,11 +8,6 @@ import { Home, BookOpen, Bookmark } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
-/**
- * Navbar component.
- * Renders the main navigation bar for the application.
- * @returns {JSX.Element} The Navbar UI.
- */
 export default function Navbar() {
   const pathname = usePathname();
 

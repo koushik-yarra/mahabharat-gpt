@@ -1,13 +1,3 @@
-/**
- * @fileOverview Footer component for the Gita Insights application.
- * Displays copyright information and a brief tagline.
- */
-
-/**
- * Footer component.
- * Renders the application footer.
- * @returns {JSX.Element} The Footer UI.
- */
 export default function Footer() {
   return (
     <footer className="border-t border-border/40 py-6 md:py-8">

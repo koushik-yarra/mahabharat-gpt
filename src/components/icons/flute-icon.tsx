@@ -1,14 +1,5 @@
-/**
- * @fileOverview FluteIcon SVG component.
- * Represents a simple flute icon.
- */
 import type { SVGProps } from 'react';
 
-/**
- * FluteIcon SVG component.
- * @param {SVGProps<SVGSVGElement>} props - SVG properties.
- * @returns {JSX.Element} The FluteIcon SVG.
- */
 export function FluteIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg

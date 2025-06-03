@@ -1,11 +1,4 @@
-
 "use client";
-/**
- * @fileOverview The main home page of the Gita Insights application.
- * This page provides a chat interface for users to ask questions and receive
- * wisdom from the Mahabharata via an AI model. It handles user input,
- * displays chat messages, and manages interaction with the AI backend.
- */
 import { useState, useTransition, useRef, useEffect } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -19,20 +12,12 @@ import { VerseCard } from "@/components/verse-card";
 import { useBookmarks } from "@/hooks/use-bookmarks";
 import { cn } from "@/lib/utils";
 
-/**
- * Interface defining the structure of a chat message.
- */
 interface ChatMessage {
   id: string;
   type: "user" | "ai";
   content: string | { query: string; verses: string }; 
 }
 
-/**
- * HomePage component.
- * Renders the main chat interface for interacting with the Mahabharat GPT.
- * @returns {JSX.Element} The home page UI.
- */
 export default function HomePage() {
   const [currentQuery, setCurrentQuery] = useState("");
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
@@ -43,21 +28,12 @@ export default function HomePage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { generateVerseId } = useBookmarks();
 
-  /**
-   * Scrolls the chat message area to the bottom.
-   */
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(scrollToBottom, [chatMessages]);
 
-  /**
-   * Handles the submission of a user's query.
-   * It sends the query to the server action, updates chat messages,
-   * and handles loading states and errors.
-   * @param {React.FormEvent<HTMLFormElement>} [event] - The form submission event, if any.
-   */
   const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) event.preventDefault();
     if (currentQuery.trim().length === 0) return;

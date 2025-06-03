@@ -1,14 +1,5 @@
-/**
- * @fileOverview OmIcon SVG component.
- * Represents the sacred "Om" symbol.
- */
 import type { SVGProps } from 'react';
 
-/**
- * OmIcon SVG component.
- * @param {SVGProps<SVGSVGElement>} props - SVG properties.
- * @returns {JSX.Element} The OmIcon SVG.
- */
 export function OmIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg

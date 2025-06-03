@@ -1,23 +1,10 @@
-
 "use client";
-/**
- * @fileOverview TextSizeProvider component and context.
- * Manages the application's text size preference, allowing users to
- * increase, decrease, or set a default text size. Changes are persisted
- * to localStorage and applied globally to the document body.
- */
 import React, { createContext, useState, useEffect, useCallback, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import { LOCAL_STORAGE_TEXT_SIZE_KEY } from '@/lib/constants';
 
-/**
- * Defines the available text size Tailwind CSS classes.
- */
 type TextSizeType = 'text-sm' | 'text-base' | 'text-lg' | 'text-xl';
 
-/**
- * Interface for the TextSizeContext.
- */
 interface TextSizeContextType {
   textSize: TextSizeType;
   setTextSize: (size: TextSizeType) => void;
@@ -30,14 +17,6 @@ const availableSizes: TextSizeType[] = ['text-sm', 'text-base', 'text-lg', 'text
 
 export const TextSizeContext = createContext<TextSizeContextType | undefined>(undefined);
 
-/**
- * TextSizeProvider component.
- * Provides text size state and functions to its children via context.
- * Handles persistence of text size preference to localStorage.
- * @param {Readonly<{ children: ReactNode }>} props - The props for the component.
- * @param {ReactNode} props.children - The child components to be wrapped by this provider.
- * @returns {JSX.Element} The TextSizeContext.Provider wrapping its children.
- */
 export function TextSizeProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [textSize, setTextSizeState] = useState<TextSizeType>(defaultTextSize);
   const [isMounted, setIsMounted] = useState(false);
