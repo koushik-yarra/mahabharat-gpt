@@ -3,10 +3,7 @@ import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 
-const context = typeof window === 'undefined' ? 'SERVER' : 'CLIENT';
-
-console.log(`--- Firebase Init (${context}) ---`);
-
+// Hardcoded Firebase configuration provided by the user
 // IMPORTANT SECURITY NOTE:
 // Hardcoding credentials here is NOT recommended for production.
 // These values were provided for debugging. For a real application,
@@ -17,11 +14,14 @@ const firebaseConfig = {
   authDomain: "gita-insights-hhorr.firebaseapp.com",
   databaseURL: "https://gita-insights-hhorr-default-rtdb.firebaseio.com",
   projectId: "gita-insights-hhorr",
-  storageBucket: "gita-insights-hhorr.firebasestorage.app",
+  storageBucket: "gita-insights-hhorr.appspot.com", // Corrected to standard format
   messagingSenderId: "74126284214",
   appId: "1:74126284214:web:4c076d66a659b095451d17"
 };
 
+const context = typeof window === 'undefined' ? 'SERVER' : 'CLIENT';
+
+console.log(`--- Firebase Init (${context}) ---`);
 console.log(`Using hardcoded firebaseConfig (${context}):`);
 console.log(`  API Key: ${firebaseConfig.apiKey ? 'Exists' : 'MISSING or undefined'}`);
 console.log(`  Auth Domain: ${firebaseConfig.authDomain}`);
@@ -34,7 +34,10 @@ console.log(`  Database URL: ${firebaseConfig.databaseURL}`);
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+
+// Specific log for Auth initialization
+console.log(`Attempting to initialize Firebase Auth (${context}) with apiKey: ${firebaseConfig.apiKey}, authDomain: ${firebaseConfig.authDomain}, projectId: ${firebaseConfig.projectId}`);
 const auth = getAuth(app);
-const database = getDatabase(app); // This should now work if the hardcoded URL is correct and RTDB is enabled.
+const database = getDatabase(app); 
 
 export { app, auth, database };
