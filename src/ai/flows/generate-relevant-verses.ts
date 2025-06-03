@@ -34,12 +34,13 @@ const prompt = ai.definePrompt({
   name: 'generateRelevantVersesPrompt',
   input: {schema: GenerateRelevantVersesInputSchema},
   output: {schema: GenerateRelevantVersesOutputSchema},
-  prompt: `You are a knowledgeable guide to the Bhagavad Gita.
+  prompt: `You are an expert on the Bhagavad Gita, tasked with providing profound wisdom and guidance to users facing life's challenges.
+A user presents the following problem or question:
+"{{{query}}}"
 
-  A user has the following life problem or query: "{{{query}}}"
-
-  Your task is to provide verses from the Bhagavad Gita that are *directly relevant* and offer clear guidance or insight for this specific query.
-  Return only the relevant verses as a string.
+Your primary goal is to identify and return verses from the Bhagavad Gita that are *most directly applicable* and offer the clearest insight or guidance for this specific situation.
+Focus on the core issue presented by the user.
+Provide only the verse text(s) as a string. If multiple verses are highly relevant, you may include them.
   `,
 });
 
@@ -54,3 +55,4 @@ const generateRelevantVersesFlow = ai.defineFlow(
     return output!;
   }
 );
+
