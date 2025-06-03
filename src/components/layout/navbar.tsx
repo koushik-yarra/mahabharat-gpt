@@ -2,11 +2,11 @@
 "use client";
 
 import Link from 'next/link';
-import { OmIcon } from '@/components/icons/om-icon'; // Keeping OmIcon for now
+import { SudarshanChakraIcon } from '@/components/icons/sudarshan-chakra-icon';
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
 import { TextSizeSelector } from '@/components/text-size-selector';
 import { Button } from '@/components/ui/button';
-import { Home, BookOpen, Bookmark } from 'lucide-react'; // Re-added Bookmark icon as Bookmarks page still exists
+import { Home, BookOpen } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -16,14 +16,14 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: 'Chat', icon: <Home className="h-4 w-4" /> },
     { href: '/overview', label: 'Overview', icon: <BookOpen className="h-4 w-4" /> },
-    { href: '/bookmarks', label: 'Bookmarks', icon: <Bookmark className="h-4 w-4" /> },
+    // { href: '/bookmarks', label: 'Bookmarks', icon: <Bookmark className="h-4 w-4" /> }, // Removed as per previous update
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <OmIcon className="h-8 w-8 text-primary" />
+          <SudarshanChakraIcon className="h-8 w-8 text-primary" />
           <span className="font-headline text-xl font-bold">Mahabharat GPT</span>
         </Link>
         <nav className="flex flex-1 items-center space-x-1">
