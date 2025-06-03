@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { createContext, useState, useEffect, useCallback, useMemo } from 'react';
@@ -10,6 +11,7 @@ interface BookmarkContextType {
   addBookmark: (verseData: { query: string, verses: string }) => void;
   removeBookmark: (verseId: string) => void;
   isBookmarked: (verseId: string) => boolean; // verseId here means the hash of query+verses
+  generateVerseId: (query: string, verses: string) => string;
 }
 
 export const BookmarkContext = createContext<BookmarkContextType | undefined>(undefined);
@@ -44,7 +46,7 @@ export function BookmarkProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  useEffect(()_ => {
+  useEffect(() => {
     if (isMounted) {
       try {
         localStorage.setItem(LOCAL_STORAGE_BOOKMARKS_KEY, JSON.stringify(bookmarks));
@@ -82,12 +84,8 @@ export function BookmarkProvider({ children }: { children: ReactNode }) {
     addBookmark,
     removeBookmark,
     isBookmarked,
-    generateVerseId, // Exporting this helper if needed externally
+    generateVerseId, 
   }), [bookmarks, addBookmark, removeBookmark, isBookmarked]);
-
-  if (!isMounted) {
-    return <>{children}</>; // Render children directly on server/initial client render
-  }
 
   return (
     <BookmarkContext.Provider value={value}>
