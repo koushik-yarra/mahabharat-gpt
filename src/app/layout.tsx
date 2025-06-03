@@ -4,7 +4,6 @@ import './globals.css';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { TextSizeProvider } from '@/providers/text-size-provider';
 import { BookmarkProvider } from '@/providers/bookmark-provider';
-import { AuthProvider } from '@/providers/auth-provider'; // Import AuthProvider
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster";
@@ -33,20 +32,18 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider> {/* Wrap with AuthProvider */}
-            <TextSizeProvider>
-              <BookmarkProvider>
-                <div className="flex flex-col flex-1">
-                  <Navbar />
-                  <main className="flex-grow container mx-auto px-4 py-8 flex flex-col">
-                    {children}
-                  </main>
-                  <Footer />
-                </div>
-                <Toaster />
-              </BookmarkProvider>
-            </TextSizeProvider>
-          </AuthProvider>
+          <TextSizeProvider>
+            <BookmarkProvider>
+              <div className="flex flex-col flex-1">
+                <Navbar />
+                <main className="flex-grow container mx-auto px-4 py-8 flex flex-col">
+                  {children}
+                </main>
+                <Footer />
+              </div>
+              <Toaster />
+            </BookmarkProvider>
+          </TextSizeProvider>
         </ThemeProvider>
       </body>
     </html>
