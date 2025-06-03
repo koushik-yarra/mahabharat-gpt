@@ -7,49 +7,34 @@ const context = typeof window === 'undefined' ? 'SERVER' : 'CLIENT';
 
 console.log(`--- Firebase Init (${context}) ---`);
 
-const rawApiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
-const rawAuthDomain = process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN;
-const rawProjectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-const rawStorageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
-const rawMessagingSenderId = process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID;
-const rawAppId = process.env.NEXT_PUBLIC_FIREBASE_APP_ID;
-const rawDatabaseURL = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL;
-
-console.log(`RAW NEXT_PUBLIC_FIREBASE_API_KEY (${context}):`, rawApiKey);
-console.log(`RAW NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN (${context}):`, rawAuthDomain);
-console.log(`RAW NEXT_PUBLIC_FIREBASE_PROJECT_ID (${context}):`, rawProjectId);
-console.log(`RAW NEXT_PUBLIC_FIREBASE_DATABASE_URL (${context}):`, rawDatabaseURL); // Pay close attention to this line
-
+// IMPORTANT SECURITY NOTE:
+// Hardcoding credentials here is NOT recommended for production.
+// These values were provided for debugging. For a real application,
+// use environment variables (e.g., from a .env.local file)
+// and ensure they are configured securely in your hosting environment.
 const firebaseConfig = {
-  apiKey: rawApiKey,
-  authDomain: rawAuthDomain,
-  projectId: rawProjectId,
-  storageBucket: rawStorageBucket,
-  messagingSenderId: rawMessagingSenderId,
-  appId: rawAppId,
-  databaseURL: rawDatabaseURL,
+  apiKey: "AIzaSyC5damp_wUCLobmBpnh6tyLc7cUfFSxgn0",
+  authDomain: "gita-insights-hhorr.firebaseapp.com",
+  databaseURL: "https://gita-insights-hhorr-default-rtdb.firebaseio.com",
+  projectId: "gita-insights-hhorr",
+  storageBucket: "gita-insights-hhorr.firebasestorage.app",
+  messagingSenderId: "74126284214",
+  appId: "1:74126284214:web:4c076d66a659b095451d17"
 };
 
-console.log(`Constructed firebaseConfig (${context}):`);
+console.log(`Using hardcoded firebaseConfig (${context}):`);
 console.log(`  API Key: ${firebaseConfig.apiKey ? 'Exists' : 'MISSING or undefined'}`);
 console.log(`  Auth Domain: ${firebaseConfig.authDomain}`);
 console.log(`  Project ID: ${firebaseConfig.projectId}`);
 console.log(`  Storage Bucket: ${firebaseConfig.storageBucket}`);
 console.log(`  Messaging Sender ID: ${firebaseConfig.messagingSenderId}`);
 console.log(`  App ID: ${firebaseConfig.appId}`);
-console.log(`  Database URL: ${firebaseConfig.databaseURL}`); // And this line in the constructed object
+console.log(`  Database URL: ${firebaseConfig.databaseURL}`);
 
-if (!firebaseConfig.databaseURL || typeof firebaseConfig.databaseURL !== 'string' || !firebaseConfig.databaseURL.startsWith('https://')) {
-  const errorPrefix = `[FIREBASE_CONFIG_ERROR (${context})]`;
-  const errorMessage = `${errorPrefix} databaseURL is invalid or missing. Current value from environment variable: "${rawDatabaseURL}", Value in config: "${firebaseConfig.databaseURL}". Please ensure NEXT_PUBLIC_FIREBASE_DATABASE_URL in your .env.local file is correctly set (e.g., "https://your-project-id-default-rtdb.firebaseio.com") and RESTART your development server.`;
-  console.error(errorMessage);
-  // This explicit check happens before Firebase's own check.
-  // If you see this error, the problem is definitively with the NEXT_PUBLIC_FIREBASE_DATABASE_URL.
-}
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
-const database = getDatabase(app); // This is where the error originates if databaseURL is bad
+const database = getDatabase(app); // This should now work if the hardcoded URL is correct and RTDB is enabled.
 
 export { app, auth, database };
