@@ -50,16 +50,6 @@ Mahabharat GPT is a Next.js web application that allows users to ask questions o
     Create a `.env.local` file in the root of your project. You'll need to add your Firebase project configuration keys here.
     The application currently uses hardcoded Firebase credentials in `src/lib/firebase.ts` for development/debugging ease due to previous troubleshooting. **For production, it is strongly recommended to remove these hardcoded keys and use environment variables from `.env.local` as shown below.**
 
-    Example `.env.local`:
-    ```env
-    NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSy...
-    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project-id.firebaseapp.com
-    NEXT_PUBLIC_FIREBASE_DATABASE_URL=https://your-project-id-default-rtdb.firebaseio.com
-    NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
-    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project-id.appspot.com
-    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
-    NEXT_PUBLIC_FIREBASE_APP_ID=1:your-app-id
-
     # Genkit/Google AI Configuration (if needed for local Genkit dev flow)
     # GOOGLE_API_KEY=your_google_ai_studio_api_key
     ```
