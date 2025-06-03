@@ -2,11 +2,11 @@
 "use client";
 
 import Link from 'next/link';
-import { FluteIcon } from '@/components/icons/flute-icon'; // Changed import
+import { LordKrishnaIcon } from '@/components/icons/lord-krishna-icon'; // Changed import
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
 import { TextSizeSelector } from '@/components/text-size-selector';
 import { Button } from '@/components/ui/button';
-import { Home, BookOpen, Bookmark } from 'lucide-react'; // Added Bookmark back temporarily for example
+import { Home, BookOpen, Bookmark } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -23,7 +23,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <FluteIcon className="h-8 w-8 text-primary" /> {/* Changed component */}
+          <LordKrishnaIcon className="h-8 w-8 text-primary" /> {/* Changed component */}
           <span className="font-headline text-xl font-bold">Mahabharat GPT</span>
         </Link>
         <nav className="flex flex-1 items-center space-x-1">
