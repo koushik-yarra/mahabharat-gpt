@@ -73,7 +73,7 @@ export default function HomePage() {
     <div className="flex flex-col h-full flex-1">
       <CardHeader className="text-center pt-0">
         <CardTitle className="font-headline text-3xl text-primary">
-          Chat with Mahabharat GPT
+          Mahabharat GPT
         </CardTitle>
         <CardDescription className="text-lg">
           Ask your questions or share your concerns to receive guidance from the epic Mahabharata.
