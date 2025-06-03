@@ -36,9 +36,10 @@ const prompt = ai.definePrompt({
   output: {schema: GenerateRelevantVersesOutputSchema},
   prompt: `You are a knowledgeable guide to the Bhagavad Gita.
 
-  A user has the following life problem: {{{query}}}
+  A user has the following life problem or query: "{{{query}}}"
 
-  Generate relevant verses from the Bhagavad Gita that offer guidance or insight related to the problem. Return the verses as a string.
+  Your task is to provide verses from the Bhagavad Gita that are *directly relevant* and offer clear guidance or insight for this specific query.
+  Return only the relevant verses as a string.
   `,
 });
 
